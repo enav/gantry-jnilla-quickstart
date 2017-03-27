@@ -1,0 +1,9 @@
+# eclipse
+.project
+.buildpath
+.settings
+.externalToolBuilders
+
+# builder
+jn-build
+jn-build-args.php

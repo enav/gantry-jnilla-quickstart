@@ -1,0 +1,32 @@
+//
+// Responsive: Landscape phone to desktop/tablet
+// --------------------------------------------------
+
+
+@media (max-width: 767px) {
+  // Make all grid-sized elements block level again
+  [class*="jn-span-"],
+  .jn-row-fluid [class*="jn-span-"] {
+    float: none;
+    display: block;
+    width: 100%;
+    .box-sizing(border-box);
+  }
+  .jn-span-12,
+  .jn-row-fluid .jn-span-12 {
+    width: 100%;
+    .box-sizing(border-box);
+  }
+  .jn-row-fluid [class*="jn-offset-"]:first-child {
+    margin-left: 0;
+  }
+  [class*="jn-push-"],
+  [class*="jn-pull-"],
+  .jn-row-fluid [class*="jn-push-"],
+  .jn-row-fluid [class*="jn-pull-"] {
+    left: auto;
+  }
+}
+
+
+

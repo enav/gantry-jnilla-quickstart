@@ -1,0 +1,95 @@
+/**
+ * @copyright	 Copyright (C) 2013 jnilla.com. All rights reserved.
+ * @license		 GNU General Public License version 2 or later; see http://www.gnu.org/licenses/gpl-2.0.html
+ */
+
+
+.jn-icheck {
+	&.checkbox, &.radio {
+		padding: 0;
+	}
+	&.controls {
+		padding-top: 5px;
+	}
+	
+	[class*="jn-icheck-"] {
+		display: inline-block;
+		*display: inline;
+		vertical-align: middle;
+		margin: 0;
+		padding: 0;
+		width: 16px;
+		height: 16px;
+		box-sizing: border-box;
+	}
+	
+	input {
+		float: none !important;
+		margin: 0px !important;
+	}
+
+	.jn-icheck-checkbox {
+		.border-radius(@inputBorderRadius);
+		position: relative;
+		border: 1px solid @linkColor;
+		
+		&.hover {
+			border: 1px solid @linkColorHover;
+		}
+
+		&.checked {
+			border: 1px solid @linkColorHover;
+			background-color: @linkColor;
+			&:after {
+				.prepare-font-awesome;
+				display: block;
+				width: 14px;
+				height: 14px;
+				line-height: 14px;
+				color: @inputBackground;
+				content: "\f00c";
+			}
+		}
+
+		&.disabled {
+			.opacity(65);
+		}
+		
+		&.focus {
+			.tab-focus();
+		}
+	}
+
+	.jn-icheck-radio {
+		.border-radius(16px);
+		position: relative;
+		border: 1px solid @linkColor;
+		
+		&.hover {
+			border: 1px solid @linkColorHover;
+		}
+
+		&.checked {
+			border: 1px solid @linkColorHover;
+			background-color: @linkColor;
+			&:after {
+				.prepare-font-awesome;
+				display: block;
+				width: 14px;
+				height: 14px;
+				line-height: 16px;
+				color: @inputBackground;
+				content: "\f00c";
+			}
+		}
+
+		&.disabled {
+			.opacity(65);
+		}
+		
+		&.focus {
+			.tab-focus();
+		}
+	}
+}
+

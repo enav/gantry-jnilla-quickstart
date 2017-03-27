@@ -1,0 +1,53 @@
+.jn-video {
+	position: relative;
+}
+
+.jn-video video {
+	display: block;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	height: auto;
+}
+
+.jn-video-play {
+	visibility: hidden;
+	width: 35px;
+	position: absolute;
+	bottom: 15px;
+	left: 15px;
+}
+
+.jn-video-play.active {
+	visibility: visible;
+}
+
+.jn-video-pause {
+	visibility: hidden;
+	width: 35px;
+	position: absolute;
+	bottom: 15px;
+	left: 15px;
+}
+
+.jn-video-pause.active {
+	visibility: visible;
+}
+
+.jn-video-seekbar {
+	position: absolute;
+	bottom: 22px;
+	left: 65px;
+	right: 15px;
+	margin: 0;
+	background: none;
+	background-color: rgba(0, 0, 0, 0.4);
+	border: 1px solid #fff;
+}
+
+.jn-video-seekbar .bar {
+	transition: none;
+	background: none;
+	background-color: rgba(255, 255, 255, 0.4);
+}

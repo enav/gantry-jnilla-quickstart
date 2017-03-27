@@ -1,0 +1,59 @@
+/**
+ * @copyright	 Copyright (C) 2013 jnilla.com. All rights reserved.
+ * @license		 GNU General Public License version 2 or later; see http://www.gnu.org/licenses/gpl-2.0.html
+ */
+
+
+
+// Note: There must be no spaces between the menu elements markup
+
+.menu-simple {
+	// from main and below
+	margin: 0;
+	padding: 0;
+	list-style: none outside none;
+	ul {
+		margin: 0;
+	padding: 0;
+	list-style: none outside none;
+	}
+	
+	display: block;
+	
+	li {
+		position: relative;
+		display: inline-block;
+	}
+	
+	// default items styles
+	.item {
+		display: block;
+		line-height: 1em;
+		padding: 1em;
+	}
+	
+	.item:hover {
+		text-decoration: none;
+		.active-state;
+	}
+	
+	.active > .item {
+		.active-state;
+	}
+	
+	// mixins
+	.active-state {
+		color: white;
+		background-color: @linkColor;
+	}
+	
+	// stack up elements for mobile devices
+	@media only screen and (max-width: 767px) {
+		&.responsive {
+			li {
+				display: block;
+			}
+		}
+	}
+}
+

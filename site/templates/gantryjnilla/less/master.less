@@ -1,0 +1,58 @@
+
+// variables
+@import "variables.less";
+
+
+// libraries
+	// bootstrap
+	.switch-layout-mode(@layout-mode);
+		.switch-layout-mode(responsive) {
+			@import "lib/bootstrap-2.3.2/bootstrap.override.less";
+			@import "lib/bootstrap-2.3.2/responsive.override.less";
+		}
+		.switch-layout-mode(960fixed) {
+			@import "lib/bootstrap-2.3.2/bootstrap.override.less";
+		}
+		.switch-layout-mode(1200fixed) {
+			@gridColumnWidth: @gridColumnWidth1200;
+			@gridGutterWidth: @gridGutterWidth1200;
+			@gridRowWidth: @gridRowWidth1200;
+			@import "lib/bootstrap-2.3.2/bootstrap.override.less";
+		}
+		
+	// jnilla
+	@import "lib/jnilla/jnilla.less";
+	.switch-layout-mode(@layout-mode);
+		.switch-layout-mode(responsive) {
+			@import "lib/jnilla/responsive.less";
+		}
+		
+	// importer (lib files that are not affected by compile order)
+	@import "lib/importer/importer.less";
+
+
+// font faces
+@import "font-face.less";
+
+
+// mix
+@import "mixin.less";
+
+
+// layout
+@import "layout.less";
+
+
+// styles
+@import "styles/importer.less";
+
+
+// misc
+@import "misc.less";
+
+
+// temporal fix, compiler bug
+@import "lib/bootstrap-2.3.2/mixins.less";
+
+
+
