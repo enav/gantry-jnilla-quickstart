@@ -1,4 +1,4 @@
-# Gantry-Jnilla Quickstart - v 1.0.0
+# Gantry-Jnilla Quickstart - v 1.1.0
 
 Joomla! 3.x quickstart package for rapid site and template development with a core hacked version of Gantry Framework and part of the Jnilla Framework - Use it under your own responsibility.
 
@@ -48,7 +48,12 @@ These resources will be rejected on any pull resquest. We do like to keep a sing
 
 ## Change log
 
-* **v 1.0.0 - 02/19/2016**
+* **v 1.1.0 - 04/10/2017**
+  * Removed legacy favion support for .ico files
+  * Add basic modern favicon support (apple, chrome, android)
+  
+  
+* **v 1.0.0 - 02/19/2017**
   * jn-animation: Code was simplified
   * jn-anchor: Is a new feature to add transitions to anchors by using a class.
   * jn-parallax: Is a new feature to add background parallax effect to elements by using a class.
