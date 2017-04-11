@@ -16,6 +16,8 @@ defined ( '_JEXEC' ) or die ();
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?php endif; ?>
 
+	<?php include "index_favicon.php" ?>
+
 	<?php
 	// add resources
 	JHtml::_('bootstrap.framework');

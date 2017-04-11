@@ -1,7 +1,7 @@
 <?php
 /**
  * @package angi4j
- * @copyright Copyright (C) 2009-2016 Nicholas K. Dionysopoulos. All rights reserved.
+ * @copyright Copyright (C) 2009-2017 Nicholas K. Dionysopoulos. All rights reserved.
  * @author Nicholas K. Dionysopoulos - http://www.dionysopoulos.me
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL v3 or later
  */
@@ -10,6 +10,9 @@ defined('_AKEEBA') or die();
 
 class AngieViewDatabase extends AView
 {
+	/** @var int Do we have a flag for large tables? */
+	public $large_tables = 0;
+
 	public function onBeforeMain()
 	{
 		/** @var AngieModelSteps $stepsModel */
@@ -20,6 +23,12 @@ class AngieViewDatabase extends AView
 		$this->substep = $stepsModel->getActiveSubstep();
 		$this->number_of_substeps = $stepsModel->getNumberOfSubsteps();
 		$this->db = $dbModel->getDatabaseInfo($this->substep);
+		$this->large_tables = $dbModel->largeTablesDetected();
+
+		if ($this->large_tables)
+		{
+			$this->large_tables = round($this->large_tables / (1024 * 1024), 2);
+		}
 
 		return true;
 	}

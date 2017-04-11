@@ -1,13 +1,14 @@
 <?php
 /**
  * @package angi4j
- * @copyright Copyright (C) 2009-2016 Nicholas K. Dionysopoulos. All rights reserved.
+ * @copyright Copyright (C) 2009-2017 Nicholas K. Dionysopoulos. All rights reserved.
  * @author Nicholas K. Dionysopoulos - http://www.dionysopoulos.me
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL v3 or later
  */
 
 defined('_AKEEBA') or die();
-/** @var $this AView */
+
+/** @var $this AngieViewDatabase */
 
 $document = $this->container->application->getDocument();
 
@@ -173,6 +174,12 @@ echo $this->loadAnyTemplate('steps/steps', array('helpurl' => 'https://www.akeeb
 						  title="<?php echo AText::_('DATABASE_LBL_DBNAME_HELP') ?>"></span>
 				</div>
 			</div>
+
+            <?php if ($this->large_tables):?>
+            <p class="alert alert-block">
+                <?php echo AText::sprintf('DATABASE_WARN_LARGE_COLUMNS', $this->large_tables, floor($this->large_tables) + 1)?>
+            </p>
+            <?php endif;?>
 		</div>
 	</div>
 

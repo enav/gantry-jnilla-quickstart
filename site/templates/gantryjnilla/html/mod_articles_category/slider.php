@@ -25,12 +25,8 @@ $uid = "slider-".uniqid();
 		<?php endforeach; ?>
 	</div>
 
-	<a class="left carousel-control" href="<?php echo "#$uid"; ?>" data-slide="prev">
-		<img src="images/mod-slider/btn-left.png">
-	</a>
-	<a class="right carousel-control" href="<?php echo "#$uid"; ?>" data-slide="next">
-		<img src="images/mod-slider/btn-right.png">
-	</a>
+	<a class="left carousel-control" href="<?php echo "#$uid"; ?>" data-slide="prev">‹</a>
+	<a class="right carousel-control" href="<?php echo "#$uid"; ?>" data-slide="next">›</a>
 </div>
 
 <script type="text/javascript">

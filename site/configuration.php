@@ -13,7 +13,7 @@ class JConfig {
 	public $captcha = '0';
 	public $cookie_domain = '';
 	public $cookie_path = '';
-	public $db = 'hps2';
+	public $db = 'gantry-jnilla';
 	public $dbprefix = 'he8oa_';
 	public $dbtype = 'mysqli';
 	public $debug = '0';
@@ -24,7 +24,7 @@ class JConfig {
 	public $feed_email = 'author';
 	public $feed_limit = '10';
 	public $force_ssl = '0';
-	public $fromname = 'hps2';
+	public $fromname = 'GantryJnilla Quickstart';
 	public $ftp_enable = '0';
 	public $ftp_host = '';
 	public $ftp_pass = '';
@@ -51,13 +51,13 @@ class JConfig {
 	public $offset_user = 'UTC';
 	public $password = 'myadmin';
 	public $robots = '';
-	public $secret = 'JLt0yGdgy0OU0H2BS1D985IrnLXuZD6R';
+	public $secret = 'Igs68vbE3ksvBzioB9QK7HCrh0qE0P6P';
 	public $sef = '1';
 	public $sef_rewrite = '1';
 	public $sef_suffix = '0';
 	public $sendmail = '/usr/sbin/sendmail';
 	public $session_handler = 'database';
-	public $sitename = 'hps2';
+	public $sitename = 'GantryJnilla Quickstart';
 	public $sitename_pagetitles = '0';
 	public $smtpauth = '1';
 	public $smtphost = 'localhost';

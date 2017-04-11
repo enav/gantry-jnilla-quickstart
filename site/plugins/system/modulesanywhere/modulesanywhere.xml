@@ -2,12 +2,12 @@
 <extension version="3.4" type="plugin" group="system" method="upgrade">
 	<name>plg_system_modulesanywhere</name>
 	<description>PLG_SYSTEM_MODULESANYWHERE_DESC</description>
-	<version>6.0.6</version>
-	<creationDate>December 2016</creationDate>
+	<version>7.2.0</version>
+	<creationDate>April 2017</creationDate>
 	<author>Regular Labs (Peter van Westen)</author>
 	<authorEmail>info@regularlabs.com</authorEmail>
 	<authorUrl>https://www.regularlabs.com</authorUrl>
-	<copyright>Copyright © 2016 Regular Labs - All Rights Reserved</copyright>
+	<copyright>Copyright © 2017 Regular Labs - All Rights Reserved</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 
 	<scriptfile>script.install.php</scriptfile>
@@ -20,9 +20,10 @@
 
 	<files>
 		<filename plugin="modulesanywhere">modulesanywhere.php</filename>
-		<filename>helper.php</filename>
 		<filename>script.install.helper.php</filename>
 		<folder>language</folder>
+		<folder>src</folder>
+		<folder>vendor</folder>
 	</files>
 
 	<media folder="media" destination="whatnothing">
@@ -81,6 +82,11 @@
 				<field name="@loadlanguage_config" type="rl_loadlanguage" extension="com_config" />
 				<field name="@notice_show_edit" type="rl_plaintext"
 					   label="MA_FRONTEND_EDITING" description="COM_CONFIG_FRONTEDITING_DESC" default="RL_ONLY_AVAILABLE_IN_PRO" />
+				<field name="fix_html" type="radio" class="btn-group" default="1"
+					   label="RL_FIX_HTML" description="RL_FIX_HTML_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
 				<field name="place_comments" type="radio" class="btn-group" default="1"
 					   label="RL_PLACE_HTML_COMMENTS" description="RL_PLACE_HTML_COMMENTS_DESC">
 					<option value="0">JNO</option>
@@ -126,22 +132,6 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-				<field name="div_enable" type="radio" class="btn-group" default="0"
-					   label="MA_EMBED_IN_A_DIV" description="MA_EMBED_IN_A_DIV_DESC">
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
-				<field name="div_width" type="text" default="" label="RL_WIDTH" description="MA_WIDTH_DESC" />
-				<field name="div_height" type="text" default="" label="RL_HEIGHT" description="MA_HEIGHT_DESC" />
-				<field name="div_float" type="radio" class="btn-group" default=""
-					   label="MA_ALIGNMENT" description="MA_ALIGNMENT_DESC">
-					<option value="">JNONE</option>
-					<option value="left">JGLOBAL_LEFT</option>
-					<option value="right">JGLOBAL_RIGHT</option>
-				</field>
-				<field name="div_class" type="text" default=""
-					   label="MA_DIV_CLASSNAME" description="MA_DIV_CLASSNAME_DESC" />
-				<field name="@block_tag_b" type="rl_block" end="1" />
 			</fieldset>
 
 			<fieldset name="advanced">

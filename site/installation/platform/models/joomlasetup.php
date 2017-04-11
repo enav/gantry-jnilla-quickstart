@@ -2,7 +2,7 @@
 
 /**
  * @package   angi4j
- * @copyright Copyright (C) 2009-2016 Nicholas K. Dionysopoulos. All rights reserved.
+ * @copyright Copyright (C) 2009-2017 Nicholas K. Dionysopoulos. All rights reserved.
  * @author    Nicholas K. Dionysopoulos - http://www.dionysopoulos.me
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL v3 or later
  */
@@ -220,6 +220,9 @@ class AngieModelJoomlaSetup extends AngieModelBaseSetup
 	{
 		// Apply the Super Administrator changes
 		$this->applySuperAdminChanges();
+
+		// Apply server config changes
+		$this->applyServerconfigchanges();
 
 		// Get the state variables and update the global configuration
 		$stateVars = $this->getStateVariables();
@@ -595,4 +598,360 @@ class AngieModelJoomlaSetup extends AngieModelBaseSetup
 		return $aes->encryptString($data);
 	}
 
+	/**
+	 * Applies server configuration changes (removing/renaming server configuration files)
+	 */
+	private function applyServerconfigchanges()
+	{
+		if ($this->input->get('removephpini'))
+		{
+			$this->removePhpini();
+		}
+
+		if ($this->input->get('replacehtaccess'))
+		{
+			$this->replaceHtaccess();
+		}
+
+		if ($this->input->get('replacewebconfig'))
+		{
+			$this->replaceWebconfig();
+		}
+
+		if ($this->input->get('removehtpasswd'))
+		{
+			$this->removeHtpasswd();
+		}
+	}
+
+	/**
+	 * Removes any user-defined PHP configuration files (.user.ini or php.ini)
+	 *
+	 * @return  bool
+	 */
+	private function removePhpini()
+	{
+		if (!$this->hasPhpIni())
+		{
+			return true;
+		}
+
+		// First of all let's remove any .bak file
+		$files = array(
+			'.user.ini.bak',
+			'php.ini.bak',
+			'administrator/.user.ini.bak',
+			'administrator/php.ini.bak',
+		);
+
+		foreach ($files as $file)
+		{
+			if (file_exists(APATH_ROOT . '/' . $file))
+			{
+				// If I get any error during the delete, let's stop here
+				if (!@unlink(APATH_ROOT . '/' . $file))
+				{
+					return false;
+				}
+			}
+		}
+
+		$renameFiles = array(
+			'.user.ini',
+			'php.ini',
+			'administrator/.user.ini',
+			'administrator/php.ini',
+		);
+
+		// Let's use the copy-on-write approach to rename those files.
+		// Read the contents, create a new file, delete the old one
+		foreach ($renameFiles as $file)
+		{
+			$origPath = APATH_ROOT . '/' . $file;
+
+			if (!file_exists($origPath))
+			{
+				continue;
+			}
+
+			$contents = file_get_contents($origPath);
+
+			// If I can't create the file let's continue with the next one
+			if (!file_put_contents($origPath . '.bak', $contents))
+			{
+				if (!empty($contents))
+				{
+					continue;
+				}
+			}
+
+			unlink($origPath);
+		}
+
+		return true;
+	}
+
+	/**
+	 * Replaces the current version of the .htaccess file with the default one provided by Joomla.
+	 * The original contents are saved in a backup file named htaccess.bak
+	 *
+	 * @return bool
+	 */
+	private function replaceHtaccess()
+	{
+		// If I don't have any .htaccess file there's no point on continuing
+		if (!$this->hasHtaccess())
+		{
+			return true;
+		}
+
+		// Fetch the latest version from Github
+		$downloader = new ADownloadDownload();
+		$contents   = false;
+
+		if ($downloader->getAdapterName())
+		{
+			$contents = $downloader->getFromURL('https://raw.githubusercontent.com/joomla/joomla-cms/staging/htaccess.txt');
+		}
+
+		// If a connection error happens or there are no download adapters we'll use our local copy of the file
+		if (empty($contents))
+		{
+			$contents = file_get_contents(__DIR__ . '/serverconfig/htaccess.txt');
+		}
+
+		// First of all let's remove any backup file. Then copy the current contents of the .htaccess file in a
+		// backup file. Finally delete the .htaccess file and write a new one with the default contents
+		// If any of those steps fails we simply stop
+		if (!@unlink(APATH_ROOT . '/htaccess.bak'))
+		{
+			return false;
+		}
+
+		$orig = file_get_contents(APATH_ROOT . '/.htaccess');
+
+		if (!empty($orig))
+		{
+			if (!file_put_contents(APATH_ROOT . '/htaccess.bak', $orig))
+			{
+				return false;
+			}
+		}
+
+		if (file_exists(APATH_ROOT . '/.htaccess'))
+		{
+			if (!@unlink(APATH_ROOT . '/.htaccess'))
+			{
+				return false;
+			}
+		}
+
+		if (!file_put_contents(APATH_ROOT . '/.htaccess', $contents))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Replaces the current version of the web.config file with the default one provided by Joomla.
+	 * The original contents are saved in a backup file named web.config.bak
+	 *
+	 * @return bool
+	 */
+	private function replaceWebconfig()
+	{
+		// If I don't have any web.config file there's no point on continuing
+		if (!$this->hasWebconfig())
+		{
+			return true;
+		}
+
+		// Fetch the latest version from Github
+		$downloader = new ADownloadDownload();
+		$contents   = $downloader->getFromURL('https://raw.githubusercontent.com/joomla/joomla-cms/staging/web.config.txt');
+
+		// If a connection error happens, let's use the local version of such file
+		if ($contents === false)
+		{
+			$contents = file_get_contents(__DIR__.'/serverconfig/web.config.txt');
+		}
+
+		// First of all let's remove any backup file. Then copy the current contents of the web.config file in a
+		// backup file. Finally delete the web.config file and write a new one with the default contents
+		// If any of those steps fails we simply stop
+		if (!@unlink(APATH_ROOT.'/web.config.bak'))
+		{
+			return false;
+		}
+
+		$orig = file_get_contents(APATH_ROOT.'/web.config');
+
+		if (!file_put_contents(APATH_ROOT.'/web.config.bak', $orig))
+		{
+			return false;
+		}
+
+		if (!@unlink(APATH_ROOT.'/web.config'))
+		{
+			return false;
+		}
+
+		if (!file_put_contents(APATH_ROOT.'/web.config', $contents))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Removes password protection from /administrator folder
+	 *
+	 * @return bool
+	 */
+	private function removeHtpasswd()
+	{
+		if (!$this->hasHtpasswd())
+		{
+			return true;
+		}
+
+		$files = array(
+			'.htaccess',
+			'.htpasswd'
+		);
+
+		foreach ($files as $file)
+		{
+			if (file_exists(APATH_ROOT.'/administrator/'.$file))
+			{
+				@unlink(APATH_ROOT.'/administrator/'.$file);
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Are we restoring to a new host?
+	 *
+	 * @return bool
+	 */
+	public function isNewhost()
+	{
+		/** @var AngieModelBaseMain $mainModel */
+		$mainModel = AModel::getAnInstance('Main', 'AngieModel');
+		$extrainfo = $mainModel->getExtraInfo();
+
+		if (isset($extrainfo['host']))
+		{
+			$uri = AUri::getInstance();
+
+			if ($extrainfo['host']['current'] != $uri->getHost())
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks if the current site has user-defined configuration files (ie php.ini or .user.ini etc etc)
+	 *
+	 * @return  bool
+	 */
+	public function hasPhpIni()
+	{
+		$files = array(
+			'.user.ini',
+			'.user.ini.bak',
+			'php.ini',
+			'php.ini.bak',
+			'administrator/.user.ini',
+			'administrator/.user.ini.bak',
+			'administrator/php.ini',
+			'administrator/php.ini.bak',
+		);
+
+		foreach ($files as $file)
+		{
+			if (file_exists(APATH_ROOT . '/' . $file))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks if the current site has .htaccess files
+	 *
+	 * @return bool
+	 */
+	public function hasHtaccess()
+	{
+		$files = array(
+			'.htaccess',
+			'htaccess.bak'
+		);
+
+		foreach ($files as $file)
+		{
+			if (file_exists(APATH_ROOT.'/'.$file))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks if the current site has webconfig files
+	 *
+	 * @return bool
+	 */
+	public function hasWebconfig()
+	{
+		$files = array(
+			'web.config',
+			'web.config.bak'
+		);
+
+		foreach ($files as $file)
+		{
+			if (file_exists(APATH_ROOT.'/'.$file))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks if the current site has htpasswd files
+	 *
+	 * @return bool
+	 */
+	public function hasHtpasswd()
+	{
+		$files = array(
+			'administrator/.htaccess',
+			'administrator/.htpasswd');
+
+		foreach ($files as $file)
+		{
+			if (file_exists(APATH_ROOT.'/'.$file))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
 }

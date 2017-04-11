@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   angi4j
- * @copyright Copyright (C) 2009-2016 Nicholas K. Dionysopoulos. All rights reserved.
+ * @copyright Copyright (C) 2009-2017 Nicholas K. Dionysopoulos. All rights reserved.
  * @author    Nicholas K. Dionysopoulos - http://www.dionysopoulos.me
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL v3 or later
  */
@@ -10,7 +10,6 @@ defined('_AKEEBA') or die();
 
 class AngieModelDatabase extends AModel
 {
-
 	/**
 	 * The databases.ini contents
 	 *
@@ -194,5 +193,24 @@ class AngieModelDatabase extends AModel
 		$this->dbini[ $key ] = (array) $data;
 
 		$this->saveDatabasesIni();
+	}
+
+	/**
+	 * Detects if we have a flag file for large columns; if so it returns its contents (longest query we will have to run)
+	 *
+	 * @return  int
+	 */
+	public function largeTablesDetected()
+	{
+		$file = APATH_INSTALLATION.'/large_tables_detected';
+
+		if (!file_exists($file))
+		{
+			return 0;
+		}
+
+		$bytes  = (int) file_get_contents($file);
+
+		return $bytes;
 	}
 }
