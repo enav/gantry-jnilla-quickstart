@@ -5,7 +5,7 @@
  */
 
 //--------------------------------------
-// Jnilla Productivity v0.0.1
+// Jnilla Productivity v1.0.0
 //--------------------------------------
 
 
@@ -111,55 +111,6 @@
 		jnActions.chosen({
 			search_contains:true,
 			disable_search_threshold:0
-		});
-		
-		// events
-		jnActions.chosen().change(function(){
-			window.location.href = $(this).find('option:selected').data('href');
-		});
-	});
-})(jQuery);
-
-
-//--------------------------------------
-// Add productivity feature on main menu
-//--------------------------------------
-(function($)
-{
-	$(document).ready(function()
-	{
-		var target = $('#menu');
-		if(!target.length) return;
-		if(target.hasClass('disabled')) return;
-		
-		// collect data
-		var items = target.find('a:not([href="#"])')
-		
-		// init control
-		var jnActions = $('<select id="jn-productivity-main-menu" data-placeholder="Jnilla Productivity..."></select>');
-		var option = $('<option></option>');
-		jnActions.append(option.clone());
-		
-		// create select and store data
-		items.each(function(){
-			var newOption = option.clone();
-			// remove nested items and fetch text
-			var text =  $(this)
-				.text()
-				.trim();
-			if(text === '') return;
-			newOption
-				.text(text)
-				.data('href', $(this).attr('href'));
-			jnActions.append(newOption);
-		});
-		jnActions.insertBefore(target);
-		
-		// enable chosen plugin on select
-		jnActions.chosen({
-			search_contains:true,
-			disable_search_threshold:0,
-			width: "150"
 		});
 		
 		// events

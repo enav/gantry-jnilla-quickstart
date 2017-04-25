@@ -1,5 +1,5 @@
 //--------------------------------------
-// Jnilla Animate v0.0.3
+// Jnilla Animate v0.0.4
 //--------------------------------------
 (function($){
 	$(document).ready(function(){
@@ -22,7 +22,7 @@
 			pollScroll();
 		});
 		
-		$(document).resize(function(){
+		$(window).resize(function(){
 			pollScroll();
 		});
 		
@@ -45,7 +45,7 @@
 		function pollScroll(){
 			$('.jn-animation-scroll').each(function(){
 				var el = $(this);
-				if(isInViewport(el)){
+				if(isInRange(el)){
 					 setStatus(el, true);
 				}else{
 					if(el.hasClass('jn-animation-repeat')) {
@@ -67,15 +67,19 @@
 			}
 		}
 		
-		// Calculates if the middle point of the element is inside the viewport boundari
-		function isInViewport(el) {
+		// Caclculates if the element is in visual range
+		function isInRange(el) {
 			var winH = $(window).height();
-			var scrollTop = $(window).scrollTop();
-			var elTop = el.offset().top;
+			var winScrollTop = $(window).scrollTop();
 			var elH = el.outerHeight();
-			var elMid = parseInt(elTop+(elH/2)-scrollTop);
+			var elTop = el.offset().top;
+			var elScrollTop = elTop-winScrollTop;
+			var elScrollBottom = elScrollTop+elH;
+			var rangeTop = 0;
+			var rangeBottom = parseInt(winH*0.75);
 			
-			if((elMid <= winH) && (elMid >=0)){
+			if((elScrollTop < rangeBottom) &&
+				(elScrollBottom > rangeTop)) {
 				return true;
 			}else{
 				return false;

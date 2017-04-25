@@ -1,4 +1,6 @@
-//jn-drawer version 1.0.0
+//--------------------------------------
+// Jnilla Drawer v1.0.1
+//--------------------------------------
 
 (function($)
 {
@@ -8,6 +10,10 @@
 		
 		// toggle button
 		$('.jn-drawer-toggle').click(function(){
+			if($('.jn-drawer-open').length){
+				reset();
+				return;
+			} 
 			reset();
 			var drawer = $(this).data('drawer');
 			$('html, body, .jn-drawer-'+drawer).addClass('jn-drawer-open');
@@ -17,7 +23,6 @@
 		// toggle on drawer body click
 		$('.jn-drawer-body').click(function(event){
 			if($(event.target).hasClass('jn-drawer-toggle')) return;
-			if($(event.target).closest('.jn-drawer-toggle').length) return;
 			reset();
 		});
 		

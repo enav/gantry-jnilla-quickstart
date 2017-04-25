@@ -1,0 +1,74 @@
+.jn-carousel {
+
+	.jn-carousel-controls {
+		position: relative;
+		height: 45px;
+	}
+
+	.jn-carousel-controls .carousel-control {
+		top: 0;
+		margin: auto;
+	}
+
+	.jn-carousel-controls .carousel-control {
+		border-radius: 0;
+		border: none;
+		height: inherit;
+		line-height: 1em;
+		font-weight: normal;
+		font-size: 38px;
+	}
+
+	.jn-carousel-controls .carousel-control.left {
+		left: 0;
+	}
+
+	.jn-carousel-controls .carousel-control.right {
+		right: 0;
+	}
+
+	.carousel-indicators-mask {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 46px;
+		right: 46px;
+		display: block;
+		margin: auto;
+		height: inherit;
+		overflow: hidden;
+	}
+
+	.carousel-indicators {
+		display: block;
+		height: inherit;
+		box-sizing: border-box;
+		position: absolute;
+		top: auto;
+		right: auto;
+		z-index: 5;
+		white-space: nowrap;
+		font-size: 0;
+		transition: 1s;
+	}
+
+	.carousel-indicators li {
+		border: 1px solid #888;
+		border-radius: 0;
+		cursor: pointer;
+		display: inline-block;
+		height: inherit;
+		box-sizing: border-box;
+		padding: 0;
+		float: none;
+		margin-left: 0;
+		text-indent: 0;
+		width: 80px;
+	}
+	
+	.carousel-indicators li.active {
+		border: 1px solid #000;
+	}
+
+
+}

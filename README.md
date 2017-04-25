@@ -49,9 +49,30 @@ These resources will be rejected on any pull resquest. We do like to keep a sing
 ## Change log
 
 * **v 1.1.0 - 04/10/2017**
-  * Removed legacy favion support for .ico files
-  * Add basic modern favicon support (apple, chrome, android)
-  
+  * (rem) Removed legacy favion support
+  * (add) Added basic favicon support
+  * (fix) Minor modifications to jn-animations.
+  * (add) New library jn-video-background. Add video backgrounds with mobile fallback support.
+  * (add) New library jn-window-height. set an element the actual window height.
+  * (fix) Fix jn-drawer panels positioning. Toggle buttons will toggle and not only open.
+  * (add) New library jn-carousel. Enhanced version of the bootstrap carousel with resposive indicators and thumbnails.
+  * (add) New Library jn-masonry. Arrange elements in the masonry fashion, define number of columns per device type and automatically calculates columns sizes.
+  * (fix) jn-parallax. Top trigger reduced from 25% to 0%. Some elements on above 25% fail to trigger after a page reload affecting elements like logos and menus on top of the page.
+  * (fix) jn-hud, .less and .js compiler behavior will be activated manually and not automatically with an administrator login.
+  * (fix) Template sections jn-before and jn-after now have 8 rows by default.
+  * (fix) No more login to access developer behavior. 
+  * (fix) Jnilla System Plugin now have the option "Development Mode" it enables the de js, less and developer tools behavior such as jn-hud. Also on development mode js, css and favicons are forced to reload.
+  * (fix) Minir modifications to jn-hud presentation
+  * (rem) The library menu-line-breaker.js was removed. This functionality will be replaced in the near future with something more elegant.
+  * (rem) The menu-dropdown.js was removed. This functionality will be replaced in the near future with something more elegant.
+  * (rem) The library jn-icheck was removed due it problematic nature. This feature will be replaced with a custom solution in the near future.
+  * (fix) The file responsive-videos.js was repurposed and renamed to responsive-iframe-videos.js.
+  * (add) New library jn-responsive. Make elements responsive based on the elements aspect ratios and parent width. ideal for iframe based video players.
+  * (fix) Minor modifications to jn-holder.
+  * (fix) Default content menu structure and demos where simplified.
+  * (fix) Updated extensions.
+  * (add) A new user "client" was created. This is a simplified user account to improve user experience of regular, non-advanced users.
+  * (fix) images folder was cleaned and simplified.
   
 * **v 1.0.0 - 02/19/2017**
   * jn-animation: Code was simplified

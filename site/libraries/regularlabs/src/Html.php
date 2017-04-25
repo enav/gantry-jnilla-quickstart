@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Regular Labs Library
- * @version         17.4.2978
+ * @version         17.4.16930
  * 
  * @author          Peter van Westen <info@regularlabs.com>
  * @link            http://www.regularlabs.com
@@ -67,6 +67,9 @@ class Html
 		{
 			return ['', $html, ''];
 		}
+
+		// Force string to UTF-8
+		$html = StringHelper::convertToUtf8($html);
 
 		$html_split = explode('<body', $html, 2);
 		$pre        = $html_split['0'];

@@ -1,11 +1,11 @@
 <?php
 /**
  * @package         Articles Anywhere
- * @version         5.10.0
+ * @version         6.0.3
  * 
  * @author          Peter van Westen <info@regularlabs.com>
  * @link            http://www.regularlabs.com
- * @copyright       Copyright © 2016 Regular Labs All Rights Reserved
+ * @copyright       Copyright © 2017 Regular Labs All Rights Reserved
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
@@ -22,26 +22,21 @@ class PlgSystemArticlesAnywhereInstallerScript extends PlgSystemArticlesAnywhere
 	public function uninstall($adapter)
 	{
 		$this->uninstallPlugin($this->extname, 'editors-xtd');
+
+		$this->enableCoreEditorPlugin();
 	}
 
-	public function onBeforeInstall()
+	public function onBeforeInstall($route)
 	{
-		if ($this->install_type != 'update')
+		if ($this->install_type == 'install')
 		{
-			return;
+			$this->setOldTagCharacters();
 		}
-
-		$this->setOldTagCharacters();
 	}
 
-	public function onAfterInstall()
+	public function onAfterInstall($route)
 	{
-		if ($this->install_type != 'update')
-		{
-			return;
-		}
-
-		$this->deleteOldFiles();
+		$this->disableCoreEditorPlugin();
 	}
 
 	private function setOldTagCharacters()
@@ -69,7 +64,7 @@ class PlgSystemArticlesAnywhereInstallerScript extends PlgSystemArticlesAnywhere
 	private function getPluginParams()
 	{
 		$query = $this->db->getQuery(true)
-			->select(array('extension_id', 'params'))
+			->select(['extension_id', 'params'])
 			->from($this->db->quoteName('#__extensions'))
 			->where($this->db->quoteName('element') . ' = ' . $this->db->quote('articlesanywhere'))
 			->where($this->db->quoteName('type') . ' = ' . $this->db->quote('plugin'))
@@ -93,18 +88,44 @@ class PlgSystemArticlesAnywhereInstallerScript extends PlgSystemArticlesAnywhere
 		JFactory::getCache()->clean('_system');
 	}
 
-	private function deleteOldFiles()
+	private function disableCoreEditorPlugin()
 	{
-		JFile::delete(
-			array(
-				JPATH_PLUGINS . '/system/articlesanywhere/helpers/article.php',
-				JPATH_PLUGINS . '/system/articlesanywhere/helpers/articles.php',
-				JPATH_PLUGINS . '/system/articlesanywhere/helpers/articlesk2.php',
-				JPATH_PLUGINS . '/system/articlesanywhere/helpers/process.php',
-				JPATH_PLUGINS . '/system/articlesanywhere/helpers/tag.php',
-				JPATH_PLUGINS . '/system/articlesanywhere/helpers/tags.php',
-				JPATH_PLUGINS . '/system/articlesanywhere/helpers/tagsk2.php',
-			)
-		);
+		$query = $this->getCoreEditorPluginQuery()
+			->set($this->db->quoteName('enabled') . ' = 0')
+			->where($this->db->quoteName('enabled') . ' = 1');
+		$this->db->setQuery($query);
+		$this->db->execute();
+
+		if (!$this->db->getAffectedRows())
+		{
+			return;
+		}
+
+		JFactory::getApplication()->enqueueMessage(JText::_('Joomla\'s own "Article" editor button has been disabled'), 'warning');
+	}
+
+	private function enableCoreEditorPlugin()
+	{
+		$query = $this->getCoreEditorPluginQuery()
+			->set($this->db->quoteName('enabled') . ' = 1')
+			->where($this->db->quoteName('enabled') . ' = 0');
+		$this->db->setQuery($query);
+		$this->db->execute();
+
+		if (!$this->db->getAffectedRows())
+		{
+			return;
+		}
+
+		JFactory::getApplication()->enqueueMessage(JText::_('Joomla\'s own "Article" editor button has been re-enabled'), 'warning');
+	}
+
+	private function getCoreEditorPluginQuery()
+	{
+		return $this->db->getQuery(true)
+			->update('#__extensions')
+			->where($this->db->quoteName('element') . ' = ' . $this->db->quote('article'))
+			->where($this->db->quoteName('folder') . ' = ' . $this->db->quote('editors-xtd'))
+			->where($this->db->quoteName('custom_data') . ' NOT LIKE ' . $this->db->quote('%articlesanywhere_ignore%'));
 	}
 }

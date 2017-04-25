@@ -21,18 +21,16 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="compiler" type="radio"
+				<field name="development_mode" type="radio"
 					class="btn-group"
-					default="2"
-					label="PLG_SYSTEM_JNILLA_FIELD_COMPILER_LABEL"
-					description="PLG_SYSTEM_JNILLA_FIELD_COMPILER_DESC"
+					default="0"
+					label="PLG_SYSTEM_JNILLA_FIELD_DEVELOPMENT_MODE_LABEL"
+					description="PLG_SYSTEM_JNILLA_FIELD_DEVELOPMENT_MODE_DESC"
 				>
 					<option value="0">JOFF</option>
-					<option value="1">JALL</option>
-					<option value="2">JADMINISTRATOR</option>
+					<option value="1">JON</option>
 				</field>
-			</fieldset>
-			<fieldset name="testing">
+				
 				<field name="test_system_messages" type="radio"
 					class="btn-group"
 					default="0"

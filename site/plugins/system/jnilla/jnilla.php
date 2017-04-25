@@ -30,20 +30,31 @@ class plgSystemJnilla extends JPlugin {
 
 	public function onAfterInitialise() {
 		$app = JFactory::getApplication();
-		if($app->getName() != 'site') return false;
-		$user = JFactory::getUser();
-		$isroot = $user->authorise('core.admin');
+		if($app->isAdmin()) return false;
 		$template = $app->getTemplate();
 		$doc = JFactory::getDocument();
+
+		// update global var
+		global $jnilla;
+		$jnilla = new stdClass();
+		$jnilla->development = $this->params->get("development_mode", '0');
+		$jnilla->uniqid = uniqid();
+
 		// TODO make this line plugin config optin
 		JHtml::_('bootstrap.framework');
 		$doc->addScript("templates/$template/js/jquery.cookie.min.js");
-		if($this->params->get("compiler", "0") === "1" || ($this->params->get("compiler", "0") === "2" && $isroot)){
+
+		if($jnilla->development){
 			plgSystemJnillaHelper::updateLessImporters();
 			plgSystemJnillaHelper::compileJsImporter();
 		}
+
 		// TODO make this line plugin config optin
-		$doc->addScript("templates/$template/js-importer/jn-compiled.js");
+		if($jnilla->development){
+			$uniqid = "?uniqid=".$jnilla->uniqid;
+		}
+		$doc->addScript("templates/$template/js-importer/jn-compiled.js$uniqid");
+
 		// System message testing
 		if($this->params->get("test_system_messages", "0") === "1")
 		{

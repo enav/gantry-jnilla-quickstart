@@ -67,9 +67,7 @@ $moduleclass_sfx = trim(htmlspecialchars($params->get('moduleclass_sfx')));
 				$class = ' class="'.trim($class) .'"';
 			}
 
-			$dataIitemId = 'data-itemid="' . $item->id . '"';
-
-			echo "<li $class $dataIitemId>";
+			echo "<li $class>";
 
 			// Render the menu item.
 			switch ($item->type) :

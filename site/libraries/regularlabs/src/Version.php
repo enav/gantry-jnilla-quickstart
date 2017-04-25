@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Regular Labs Library
- * @version         17.4.2978
+ * @version         17.4.16930
  * 
  * @author          Peter van Westen <info@regularlabs.com>
  * @link            http://www.regularlabs.com
@@ -237,7 +237,7 @@ class Version
 			var RLEM_TOKEN = '" . JSession::getFormToken() . "';
 		"
 		);
-		Document::script('regularlabsmanager/script.min.js', '17.4.2978');
+		Document::script('regularlabsmanager/script.min.js', '17.4.16930');
 
 		$url = 'http://download.regularlabs.com?ext=' . $alias . '&j=3';
 

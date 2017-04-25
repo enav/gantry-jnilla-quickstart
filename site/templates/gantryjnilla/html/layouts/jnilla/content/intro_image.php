@@ -113,7 +113,7 @@ else
 if(!$image)
 {
 	// set default placeholder
-	$image = "images/jnilla/intro-placeholder.png";
+	$image = "images/intro-placeholder.png";
 	$image_title = $item->title;
 }
 ?>

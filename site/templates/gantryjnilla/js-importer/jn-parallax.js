@@ -25,7 +25,7 @@
 					offset = offset*100/(elH+winH);
 				}
 				
-				el.css('background-position', '0 '+offset+'%');
+				el.css('background-position-y', offset+'%');
 			});
 		});
 		$(window).trigger('scroll');

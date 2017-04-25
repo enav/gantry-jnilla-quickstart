@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Regular Labs Library
- * @version         17.4.2978
+ * @version         17.4.16930
  * 
  * @author          Peter van Westen <info@regularlabs.com>
  * @link            http://www.regularlabs.com
@@ -203,5 +203,29 @@ class StringHelper
 
 		// As last fallback, check if the preg_match finds anything using the unicode flag
 		return preg_match('#.#u', $string);
+	}
+
+	/**
+	 * Converts a string to a UTF-8 encoded string
+	 *
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	public static function convertToUtf8(&$string = '')
+	{
+		if (self::detectUTF8($string))
+		{
+			// Already UTF-8, so skip
+			return $string;
+		}
+
+		if (!function_exists('iconv'))
+		{
+			// Still need to find a stable fallback
+			return $string;
+		}
+
+		return @iconv('UTF8', 'UTF-8//IGNORE', $string);
 	}
 }

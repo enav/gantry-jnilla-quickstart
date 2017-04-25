@@ -1,15 +1,21 @@
 <?php
 /**
  * @package         Articles Anywhere
- * @version         5.10.0
+ * @version         6.0.3
  * 
  * @author          Peter van Westen <info@regularlabs.com>
  * @link            http://www.regularlabs.com
- * @copyright       Copyright © 2016 Regular Labs All Rights Reserved
+ * @copyright       Copyright © 2017 Regular Labs All Rights Reserved
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
 defined('_JEXEC') or die;
+
+use RegularLabs\Library\Document as RL_Document;
+use RegularLabs\Library\Extension as RL_Extension;
+use RegularLabs\Library\Language as RL_Language;
+use RegularLabs\Library\Parameters as RL_Parameters;
+use RegularLabs\Library\StringHelper as RL_String;
 
 $user = JFactory::getUser();
 if ($user->get('guest')
@@ -23,11 +29,7 @@ if ($user->get('guest')
 	JError::raiseError(403, JText::_("ALERTNOTAUTH"));
 }
 
-require_once JPATH_LIBRARIES . '/regularlabs/helpers/string.php';
-require_once JPATH_LIBRARIES . '/regularlabs/helpers/text.php';
-require_once JPATH_LIBRARIES . '/regularlabs/helpers/parameters.php';
-$parameters = RLParameters::getInstance();
-$params     = $parameters->getPluginParams('articlesanywhere');
+$params = RL_Parameters::getInstance()->getPluginParams('articlesanywhere');
 
 if (JFactory::getApplication()->isSite())
 {
@@ -42,19 +44,19 @@ $class->render($params);
 
 class PlgButtonArticlesAnywherePopup
 {
-	function render(&$params)
+	public function render(&$params)
 	{
 		$app = JFactory::getApplication();
 
 		// load the admin language file
-		require_once JPATH_LIBRARIES . '/regularlabs/helpers/functions.php';
-		RLFunctions::loadLanguage('plg_system_regularlabs');
-		RLFunctions::loadLanguage('plg_editors-xtd_articlesanywhere');
-		RLFunctions::loadLanguage('plg_system_articlesanywhere');
-		RLFunctions::loadLanguage('com_content', JPATH_ADMINISTRATOR);
 
-		RLFunctions::stylesheet('regularlabs/popup.min.css');
-		RLFunctions::stylesheet('regularlabs/style.min.css');
+		RL_Language::load('plg_system_regularlabs');
+		RL_Language::load('plg_editors-xtd_articlesanywhere');
+		RL_Language::load('plg_system_articlesanywhere');
+		RL_Language::load('com_content', JPATH_ADMINISTRATOR);
+
+		RL_Document::style('regularlabs/popup.min.css');
+		RL_Document::style('regularlabs/style.min.css');
 
 		require_once JPATH_ADMINISTRATOR . '/components/com_content/helpers/content.php';
 
@@ -74,7 +76,7 @@ class PlgButtonArticlesAnywherePopup
 		$filter_author    = $app->getUserStateFromRequest($option . '_filter_author', 'filter_author', 0, 'int');
 		$filter_state     = $app->getUserStateFromRequest($option . '_filter_state', 'filter_state', '', 'word');
 		$filter_search    = $app->getUserStateFromRequest($option . '_filter_search', 'filter_search', '', 'string');
-		$filter_search    = RLString::strtolower($filter_search);
+		$filter_search    = RL_String::strtolower($filter_search);
 
 		$limit      = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
 		$limitstart = $app->getUserStateFromRequest($option . '_limitstart', 'limitstart', 0, 'int');
@@ -82,7 +84,7 @@ class PlgButtonArticlesAnywherePopup
 		// In case limit has been changed, adjust limitstart accordingly
 		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
 
-		$lists = array();
+		$lists = [];
 
 		// filter_search filter
 		$lists['filter_search'] = $filter_search;
@@ -120,7 +122,7 @@ class PlgButtonArticlesAnywherePopup
 			$lists['state'] = JHtml::_('grid.state', $filter_state, 'JPUBLISHED', 'JUNPUBLISHED', 'JARCHIVED');
 
 			/* ITEMS */
-			$where   = array();
+			$where   = [];
 			$where[] = 'c.state != -2';
 
 			/*
@@ -168,8 +170,8 @@ class PlgButtonArticlesAnywherePopup
 				}
 				else
 				{
-					$cols = array('id', 'title', 'alias', 'introtext', 'fulltext');
-					$w    = array();
+					$cols = ['id', 'title', 'alias', 'introtext', 'fulltext'];
+					$w    = [];
 					foreach ($cols as $col)
 					{
 						$w[] = 'LOWER(c.' . $col . ') LIKE ' . $db->quote('%' . $db->escape($filter_search, true) . '%', false);
@@ -287,7 +289,7 @@ class PlgButtonArticlesAnywherePopup
 					$tag = $tag_start . $plugin_tag . ' ' . JText::_('JGRID_HEADING_ID') . '/' . JText::_('JGLOBAL_TITLE') . '/' . JText::_('JFIELD_ALIAS_LABEL') . $tag_end
 						. $tag_data_start . JText::_('AA_DATA') . $tag_data_end
 						. $tag_start . '/' . $plugin_tag . $tag_end;
-					echo RLText::html_entity_decoder(JText::sprintf('AA_CLICK_ON_ONE_OF_THE_ARTICLE_LINKS', $tag));
+					echo RL_String::html_entity_decoder(JText::sprintf('AA_CLICK_ON_ONE_OF_THE_ARTICLE_LINKS', $tag));
 					?>
 				</div>
 
@@ -716,10 +718,10 @@ class PlgButtonArticlesAnywherePopup
 				       title="<?php echo JText::_('COM_CONTENT_FILTER_SEARCH_DESC'); ?>">
 			</div>
 			<div class="btn-group pull-left hidden-phone">
-				<button class="btn" type="submit" rel="tooltip"
+				<button class="btn btn-default" type="submit" rel="tooltip"
 				        title="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>">
 					<span class="icon-search"></span></button>
-				<button class="btn" type="button" rel="tooltip" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"
+				<button class="btn btn-default" type="button" rel="tooltip" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"
 				        onclick="document.id('filter_search').value='';this.form.submit();">
 					<span class="icon-remove"></span></button>
 			</div>
@@ -782,7 +784,7 @@ class PlgButtonArticlesAnywherePopup
 					<tr class="<?php echo "row$k"; ?>">
 						<td class="center">
 							<?php
-							echo '<button class="btn" rel="tooltip" title="<strong>' . JText::_('AA_USE_ID_IN_TAG') . '</strong><br>'
+							echo '<button class="btn btn-default" rel="tooltip" title="<strong>' . JText::_('AA_USE_ID_IN_TAG') . '</strong><br>'
 								. $tag_start . $plugin_tag . ' ' . $row->id . $tag_end . '...' . $tag_start . '/' . $plugin_tag . $tag_end
 								. '" onclick="articlesanywhere_jInsertEditorText( \'' . $row->id . '\' );return false;">'
 								. $row->id
@@ -791,7 +793,7 @@ class PlgButtonArticlesAnywherePopup
 						</td>
 						<td class="title">
 							<?php
-							echo '<button class="btn" rel="tooltip" title="<strong>' . JText::_('AA_USE_TITLE_IN_TAG') . '</strong><br>'
+							echo '<button class="btn btn-default" rel="tooltip" title="<strong>' . JText::_('AA_USE_TITLE_IN_TAG') . '</strong><br>'
 								. $tag_start . $plugin_tag . ' ' . htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8') . $tag_end . '...' . $tag_start . '/' . $plugin_tag . $tag_end
 								. '" onclick="articlesanywhere_jInsertEditorText( \'' . addslashes(htmlspecialchars($row->title, ENT_COMPAT, 'UTF-8')) . '\' );return false;">'
 								. htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8')
@@ -800,7 +802,7 @@ class PlgButtonArticlesAnywherePopup
 						</td>
 						<td class="title">
 							<?php
-							echo '<button class="btn" rel="tooltip" title="<strong>' . JText::_('AA_USE_ALIAS_IN_TAG') . '</strong><br>'
+							echo '<button class="btn btn-default" rel="tooltip" title="<strong>' . JText::_('AA_USE_ALIAS_IN_TAG') . '</strong><br>'
 								. $tag_start . $plugin_tag . ' ' . $row->alias . $tag_end . '...' . $tag_start . '/' . $plugin_tag . $tag_end
 								. '" onclick="articlesanywhere_jInsertEditorText( \'' . $row->alias . '\' );return false;">'
 								. $row->alias

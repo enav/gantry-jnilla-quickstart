@@ -148,6 +148,38 @@
 			<field name="showall" type="toggle" default="0" label="FORCE_POS"/>
 			<field name="showmax" type="showmax" default="6" label="POS_COUNT"/>
 		</fields>
+		<fields name="jn-before-5" type="position" label="jn-Before-5" description="">
+			<field name="layout" type="positions" default="3,3,3,3" label="">
+				<schemas>1,2,3,4,5,6</schemas>
+				<words>2,3,4,5,6,7,8,9,10</words>
+			</field>
+			<field name="showall" type="toggle" default="0" label="FORCE_POS"/>
+			<field name="showmax" type="showmax" default="6" label="POS_COUNT"/>
+		</fields>
+		<fields name="jn-before-6" type="position" label="jn-Before-6" description="">
+			<field name="layout" type="positions" default="3,3,3,3" label="">
+				<schemas>1,2,3,4,5,6</schemas>
+				<words>2,3,4,5,6,7,8,9,10</words>
+			</field>
+			<field name="showall" type="toggle" default="0" label="FORCE_POS"/>
+			<field name="showmax" type="showmax" default="6" label="POS_COUNT"/>
+		</fields>
+		<fields name="jn-before-7" type="position" label="jn-Before-7" description="">
+			<field name="layout" type="positions" default="3,3,3,3" label="">
+				<schemas>1,2,3,4,5,6</schemas>
+				<words>2,3,4,5,6,7,8,9,10</words>
+			</field>
+			<field name="showall" type="toggle" default="0" label="FORCE_POS"/>
+			<field name="showmax" type="showmax" default="6" label="POS_COUNT"/>
+		</fields>
+		<fields name="jn-before-8" type="position" label="jn-Before-8" description="">
+			<field name="layout" type="positions" default="3,3,3,3" label="">
+				<schemas>1,2,3,4,5,6</schemas>
+				<words>2,3,4,5,6,7,8,9,10</words>
+			</field>
+			<field name="showall" type="toggle" default="0" label="FORCE_POS"/>
+			<field name="showmax" type="showmax" default="6" label="POS_COUNT"/>
+		</fields>
 		
 		<!-- jn-above -->
 		<field name="spacer_above" type="spacer" label="" />
@@ -254,6 +286,38 @@
 			<field name="showmax" type="showmax" default="6" label="POS_COUNT"/>
 		</fields>
 		<fields name="jn-after-4" type="position" label="jn-After-4" description="">
+			<field name="layout" type="positions" default="3,3,3,3" label="">
+				<schemas>1,2,3,4,5,6</schemas>
+				<words>2,3,4,5,6,7,8,9,10</words>
+			</field>
+			<field name="showall" type="toggle" default="0" label="FORCE_POS"/>
+			<field name="showmax" type="showmax" default="6" label="POS_COUNT"/>
+		</fields>
+		<fields name="jn-after-5" type="position" label="jn-After-5" description="">
+			<field name="layout" type="positions" default="3,3,3,3" label="">
+				<schemas>1,2,3,4,5,6</schemas>
+				<words>2,3,4,5,6,7,8,9,10</words>
+			</field>
+			<field name="showall" type="toggle" default="0" label="FORCE_POS"/>
+			<field name="showmax" type="showmax" default="6" label="POS_COUNT"/>
+		</fields>
+		<fields name="jn-after-6" type="position" label="jn-After-6" description="">
+			<field name="layout" type="positions" default="3,3,3,3" label="">
+				<schemas>1,2,3,4,5,6</schemas>
+				<words>2,3,4,5,6,7,8,9,10</words>
+			</field>
+			<field name="showall" type="toggle" default="0" label="FORCE_POS"/>
+			<field name="showmax" type="showmax" default="6" label="POS_COUNT"/>
+		</fields>
+		<fields name="jn-after-7" type="position" label="jn-After-7" description="">
+			<field name="layout" type="positions" default="3,3,3,3" label="">
+				<schemas>1,2,3,4,5,6</schemas>
+				<words>2,3,4,5,6,7,8,9,10</words>
+			</field>
+			<field name="showall" type="toggle" default="0" label="FORCE_POS"/>
+			<field name="showmax" type="showmax" default="6" label="POS_COUNT"/>
+		</fields>
+		<fields name="jn-after-8" type="position" label="jn-After-8" description="">
 			<field name="layout" type="positions" default="3,3,3,3" label="">
 				<schemas>1,2,3,4,5,6</schemas>
 				<words>2,3,4,5,6,7,8,9,10</words>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Regular Labs Library
- * @version         17.4.2978
+ * @version         17.4.16930
  * 
  * @author          Peter van Westen <info@regularlabs.com>
  * @link            http://www.regularlabs.com
@@ -43,8 +43,7 @@ class JFormFieldRL_Users extends \RegularLabs\Library\Field
 	{
 		$query = $this->db->getQuery(true)
 			->select('COUNT(u.id)')
-			->from('#__users AS u')
-			->where('u.block = 0');
+			->from('#__users AS u');
 		$this->db->setQuery($query);
 		$total = $this->db->loadResult();
 
@@ -54,10 +53,18 @@ class JFormFieldRL_Users extends \RegularLabs\Library\Field
 		}
 
 		$query->clear('select')
-			->select('u.name, u.username, u.id')
+			->select('u.name, u.username, u.id, u.block as disabled')
 			->order('name');
 		$this->db->setQuery($query);
 		$list = $this->db->loadObjectList();
+
+		$list = array_map(function($item){
+			if($item->disabled) {
+				$item->name .= ' (' . JText::_('JDISABLED') . ')';
+			}
+
+			return $item;
+		}, $list);
 
 		return $this->getOptionsByList($list, ['username', 'id']);
 	}

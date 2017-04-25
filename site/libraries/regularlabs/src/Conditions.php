@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Regular Labs Library
- * @version         17.4.2978
+ * @version         17.4.16930
  * 
  * @author          Peter van Westen <info@regularlabs.com>
  * @link            http://www.regularlabs.com
@@ -221,9 +221,7 @@ class Conditions
 
 				$className = '\\RegularLabs\\Library\\Condition\\' . $condition->class_name;
 
-				$class = new $className($condition, $article);
-
-				$pass = $class->pass();
+				$pass = (new $className($condition, $article))->pass();
 
 				break;
 		}

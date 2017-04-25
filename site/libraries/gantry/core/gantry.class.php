@@ -1174,7 +1174,14 @@ class Gantry
 			}
 			$quick_expire_cache->clear($cssfile_md5 . '-compiling');
 		}
-		$this->addStyle($css_passed_path, $priority);
+
+		global $jnilla;
+		if($jnilla->development){
+			$this->addStyle($css_passed_path."?id=".$jnilla->uniqid, $priority);
+		}else{
+			$this->addStyle($css_passed_path, $priority);
+		}
+
 		if (!empty($css_append) && !is_null($cssfile) && dirname($cssfile) == '.') {
 			$this->addStyle($cssfile, $priority);
 		}

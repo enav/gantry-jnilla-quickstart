@@ -111,7 +111,35 @@
 		<position>jn-before-4-d</position>
 		<position>jn-before-4-e</position>
 		<position>jn-before-4-f</position>
+		
+		<position>jn-before-5-a</position>
+		<position>jn-before-5-b</position>
+		<position>jn-before-5-c</position>
+		<position>jn-before-5-d</position>
+		<position>jn-before-5-e</position>
+		<position>jn-before-5-f</position>
 
+		<position>jn-before-6-a</position>
+		<position>jn-before-6-b</position>
+		<position>jn-before-6-c</position>
+		<position>jn-before-6-d</position>
+		<position>jn-before-6-e</position>
+		<position>jn-before-6-f</position>
+
+		<position>jn-before-7-a</position>
+		<position>jn-before-7-b</position>
+		<position>jn-before-7-c</position>
+		<position>jn-before-7-d</position>
+		<position>jn-before-7-e</position>
+		<position>jn-before-7-f</position>
+
+		<position>jn-before-8-a</position>
+		<position>jn-before-8-b</position>
+		<position>jn-before-8-c</position>
+		<position>jn-before-8-d</position>
+		<position>jn-before-8-e</position>
+		<position>jn-before-8-f</position>
+		
 		<position>jn-above-1-a</position>
 		<position>jn-above-1-b</position>
 		<position>jn-above-1-c</position>
@@ -171,7 +199,7 @@
 		<position>jn-below-4-d</position>
 		<position>jn-below-4-e</position>
 		<position>jn-below-4-f</position>
-
+		
 		<position>jn-after-1-a</position>
 		<position>jn-after-1-b</position>
 		<position>jn-after-1-c</position>
@@ -199,14 +227,42 @@
 		<position>jn-after-4-d</position>
 		<position>jn-after-4-e</position>
 		<position>jn-after-4-f</position>
-
+		
+		<position>jn-after-5-a</position>
+		<position>jn-after-5-b</position>
+		<position>jn-after-5-c</position>
+		<position>jn-after-5-d</position>
+		<position>jn-after-5-e</position>
+		<position>jn-after-5-f</position>
+		
+		<position>jn-after-6-a</position>
+		<position>jn-after-6-b</position>
+		<position>jn-after-6-c</position>
+		<position>jn-after-6-d</position>
+		<position>jn-after-6-e</position>
+		<position>jn-after-6-f</position>
+		
+		<position>jn-after-7-a</position>
+		<position>jn-after-7-b</position>
+		<position>jn-after-7-c</position>
+		<position>jn-after-7-d</position>
+		<position>jn-after-7-e</position>
+		<position>jn-after-7-f</position>
+		
+		<position>jn-after-8-a</position>
+		<position>jn-after-8-b</position>
+		<position>jn-after-8-c</position>
+		<position>jn-after-8-d</position>
+		<position>jn-after-8-e</position>
+		<position>jn-after-8-f</position>
+		
 		<position>jn-footer-1-a</position>
 		<position>jn-footer-1-b</position>
 		<position>jn-footer-1-c</position>
 		<position>jn-footer-1-d</position>
 		<position>jn-footer-1-e</position>
 		<position>jn-footer-1-f</position>
-
+		
 		<position>jn-footer-2-a</position>
 		<position>jn-footer-2-b</position>
 		<position>jn-footer-2-c</position>
@@ -237,7 +293,7 @@
 		
 		<position>jn-drawer-left</position>
 		<position>jn-drawer-right</position>
-
+		
 		<position>jn-debug</position>
 	</positions>
 	
