@@ -1,4 +1,4 @@
-# Gantry-Jnilla Quickstart - v 1.1.0
+# Gantry-Jnilla Quickstart - v 1.2.0
 
 Joomla! 3.x quickstart package for rapid site and template development with a core hacked version of Gantry Framework and part of the Jnilla Framework - Use it under your own responsibility.
 
@@ -48,7 +48,7 @@ These resources will be rejected on any pull resquest. We do like to keep a sing
 
 ## Change log
 
-* **v 1.1.0 - 04/10/2017**
+* **v 1.2.0 - 04/25/2017**
   * (rem) Removed legacy favion support
   * (add) Added basic favicon support
   * (fix) Minor modifications to jn-animations.
