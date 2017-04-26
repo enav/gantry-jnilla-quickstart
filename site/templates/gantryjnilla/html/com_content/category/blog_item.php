@@ -29,12 +29,6 @@ $link = JRoute::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->
 				</a>
 			</h4>
 
-			<?php // item info ?>
-			<p class="blog-item-info">
-				<strong><?php echo JText::_('JPUBLISHED'); ?>:</strong>
-				<?php echo JHTML::_('date', $item->created, "M d, Y"); ?>
-			</p>
-
 			<?php // item introtext ?>
 			<?php if ($params->get('show_intro')) :?>
 				<p class="blog-item-introtext"><?php echo JHtml::_('string.truncate', strip_tags($item->introtext), 255); ?></p>

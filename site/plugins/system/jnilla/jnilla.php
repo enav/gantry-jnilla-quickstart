@@ -42,7 +42,6 @@ class plgSystemJnilla extends JPlugin {
 
 		// TODO make this line plugin config optin
 		JHtml::_('bootstrap.framework');
-		$doc->addScript("templates/$template/js/jquery.cookie.min.js");
 
 		if($jnilla->development){
 			plgSystemJnillaHelper::updateLessImporters();

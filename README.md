@@ -48,6 +48,18 @@ These resources will be rejected on any pull resquest. We do like to keep a sing
 
 ## Change log
 
+* **v 1.2.1 - 99/99/2017**
+  * (fix) Minor modification to com_content overrides.
+  * (rem) Demo blog menu item and articles were removed.
+  * (fix) jn-hud. Cookie state bug fixed.
+  * (fix) Minor edit to jnila system plugin.
+  * (fix) 
+  * (fix) 
+  * (fix) 
+  * (fix) 
+  * (fix) 
+  
+  
 * **v 1.2.0 - 04/25/2017**
   * (rem) Removed legacy favion support
   * (add) Added basic favicon support
@@ -73,6 +85,7 @@ These resources will be rejected on any pull resquest. We do like to keep a sing
   * (fix) Updated extensions.
   * (add) A new user "client" was created. This is a simplified user account to improve user experience of regular, non-advanced users.
   * (fix) images folder was cleaned and simplified.
+
   
 * **v 1.0.0 - 02/19/2017**
   * jn-animation: Code was simplified

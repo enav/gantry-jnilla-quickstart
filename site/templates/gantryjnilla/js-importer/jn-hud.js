@@ -1,10 +1,8 @@
 //--------------------------------------
 // Jnilla HUD v1.0.0
 //--------------------------------------
-(function($)
-{
-	$(document).ready(function()
-	{
+(function($){
+	$(document).ready(function(){
 		//--------------------------------------
 		// init
 		//--------------------------------------
@@ -12,7 +10,10 @@
 		
 		var baseUrl = $('body').data('baseurl');
 		$('body').addClass('jn-hud-hide');
-		if(typeof $.cookie('jnhudtoggle') === 'undefined') toggleHud();
+		if(typeof $.cookie('jnhudtoggle') === 'undefined'){
+			$.cookie('jnhudtoggle', '1');
+		};
+		if($.cookie('jnhudtoggle') === "1") toggleHud();
 		
 		// append index labels to heading elements
 		$(':header').each(function() {
@@ -118,7 +119,6 @@
 		// functions
 		//--------------------------------------
 		
-		
 		// compile less and reload css
 		function compileLESSandReloadCSS(){
 			var el = $('head link[href*="css-compiled"]');
@@ -170,7 +170,7 @@
 		
 		// toggle hud cookie state
 		function toggleHudCookie(){
-			if ($.cookie('jnhudtoggle') === "0")
+			if ($.cookie('jnhudtoggle') === "0" )
 			{
 				$.cookie('jnhudtoggle', '1');
 			}else
